@@ -1,0 +1,31 @@
+version: '3.7'
+
+services:
+  vehicle_service:
+    image: 'docker-spring-boot-postgres:latest'
+    build:
+      context: .
+    container_name: vehicle_service
+    depends_on:
+      - db
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=admin123
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://db:5432/vehicledb
+      - SPRING_DATASOURCE_USERNAME=postgres
+      - SPRING_DATASOURCE_PASSWORD=admin123
+      - SPRING_JPA_HIBERNATE_DDL_AUTO=update
+      # Variable d'environnement pour l'URL de communication avec client_service
+      - CLIENT_SERVICE_URL=http://client_service:8081/api/clients
+    ports:
+      - "8082:8082"  # Expose le service vehicle sur le port 8082
+
+  db:
+    image: postgres
+    container_name: vehicle_db
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=admin123
+      - POSTGRES_DB=vehicledb
+    ports:
+      - "5433:5432"  # Expose la base de données PostgreSQL sur le port 5433

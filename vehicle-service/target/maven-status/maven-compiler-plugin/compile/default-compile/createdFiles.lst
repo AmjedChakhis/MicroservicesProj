@@ -1,0 +1,10 @@
+com\garage\vehicle_service\dto\VehicleDto.class
+com\garage\vehicle_service\entity\Vehicle.class
+com\garage\vehicle_service\controller\VehicleController.class
+com\garage\vehicle_service\entity\Vehicle$VehicleBuilder.class
+com\garage\vehicle_service\config\WebClientConfig.class
+com\garage\vehicle_service\dto\VehicleDto$VehicleDtoBuilder.class
+com\garage\vehicle_service\service\VehicleService.class
+com\garage\vehicle_service\repository\VehicleRepository.class
+com\garage\vehicle_service\dto\ClientDto.class
+com\garage\vehicle_service\VehicleServiceApplication.class
