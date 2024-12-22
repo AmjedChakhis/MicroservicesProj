@@ -1,0 +1,30 @@
+
+
+services:
+  vehicle_service:
+    image: 'docker-spring-boot-postgres:latest'
+    build:
+      context: .
+    container_name: workshop_service
+    depends_on:
+      - db
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=admin123
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://db:5432/tasksdb
+      - SPRING_DATASOURCE_USERNAME=postgres
+      - SPRING_DATASOURCE_PASSWORD=admin123
+      - SPRING_JPA_HIBERNATE_DDL_AUTO=update
+      - VEHICLE_SERVICE_URL=http://vehicle_service:8082/api/vehicles
+    ports:
+      - "8083:8083"  # Expose le service vehicle sur le port 8082
+
+  db:
+    image: postgres
+    container_name: workshop_db
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=admin123
+      - POSTGRES_DB=tasksdb
+    ports:
+      - "5434:5432"

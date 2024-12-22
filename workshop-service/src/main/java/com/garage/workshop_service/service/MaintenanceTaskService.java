@@ -82,14 +82,24 @@ public class MaintenanceTaskService {
         MaintenanceTask savedTask = taskRepository.save(existingTask);
 
         if ( updatedTaskDto.getStatus() == TaskStatus.SCHEDULED) {
-            System.out.println("Publishing message for vehicleId: " + updatedTaskDto.getVehicleId());
+            System.out.println("Publishing message in notification queue for vehicleId: " + updatedTaskDto.getVehicleId());
             rabbitTemplate.convertAndSend(
-                    RabbitMQConfig.EXCHANGE,
-                    RabbitMQConfig.ROUTING_KEY,
+                    RabbitMQConfig.NOTIFICATION_EXCHANGE,
+                    RabbitMQConfig.NOTIFICATION_ROUTING_KEY,
                     Map.of("vehicleId", updatedTaskDto.getVehicleId())
             );
-        } else {
-            System.out.println("Message not published. Status didn't change or is not SCHEDULED."  );
+        }
+        else if ( updatedTaskDto.getStatus() == TaskStatus.DONE) {
+            System.out.println("Publishing message in invoice queue for vehicleId: " + updatedTaskDto.getVehicleId());
+            rabbitTemplate.convertAndSend(
+                    RabbitMQConfig.INVOICE_EXCHANGE,
+                    RabbitMQConfig.INVOICE_ROUTING_KEY,
+                    Map.of("vehicleId", updatedTaskDto.getVehicleId())
+            );
+        }
+
+        else {
+            System.out.println("Message not published. Status didn't change."  );
         }
 
 
