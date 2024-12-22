@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: billing-deployment
+  labels:
+    app: billing
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: billing
+  template:
+    metadata:
+      labels:
+        app: billing
+    spec:
+      containers:
+        - name: billing-service
+          image: billing-service:latest # Image Docker pour la facturation
+          ports:
+            - containerPort: 8085

@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: clients-deployment
+  labels:
+    app: clients
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: clients
+  template:
+    metadata:
+      labels:
+        app: clients
+    spec:
+      containers:
+        - name: clients-service
+          image: clients-service:latest # Image Docker pour la gestion des clients
+          ports:
+            - containerPort: 8081
+          env:
+            - name: DATABASE_URL
+              value: "jdbc:postgresql://db-service:5432/garage"
+            - name: DATABASE_USERNAME
+              value: "postgres"
+            - name: DATABASE_PASSWORD
+              value: "admin123"

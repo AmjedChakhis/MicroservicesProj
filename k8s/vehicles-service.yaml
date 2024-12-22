@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: vehicles-deployment
+  labels:
+    app: vehicles
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: vehicles
+  template:
+    metadata:
+      labels:
+        app: vehicles
+    spec:
+      containers:
+        - name: vehicles-service
+          image: vehicles-service:latest # Image Docker pour la gestion des véhicules
+          ports:
+            - containerPort: 8082
+          env:
+            - name: DATABASE_URL
+              value: "jdbc:postgresql://db-service:5432/garage"
+            - name: DATABASE_USERNAME
+              value: "postgres"
+            - name: DATABASE_PASSWORD
+              value: "admin123"
