@@ -2,6 +2,7 @@
 
 ## Overview 🌐
 The Garage Management Application is a microservices-based system designed to streamline the daily operations of an automotive repair workshop. It provides features for managing clients, their vehicles, and the workshop's schedule while ensuring effective communication through notifications and invoicing.
+
 The primary goal of this application is to demonstrate several software-architecture concepts like:
 
 - Microservices
