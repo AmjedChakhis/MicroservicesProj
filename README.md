@@ -8,7 +8,13 @@ The primary goal of this application is to demonstrate several software-architec
 - Microservices
 - Event driven Architecture
 - Domain Driven Design (DDD)
-
+  
+ With container-technologies like:
+ 
+- Docker
+- Kubernetes
+- Istio (service-mesh)
+  
 ### Technologies Used 🛠️
 - **Spring Boot** for backend development
 - **ReactJS** for frontend development
